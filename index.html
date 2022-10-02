@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;viewport-fit=cover"
+      name="viewport"
+    />
+    <title>Document</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+      }
+      html,body {
+        height: 100%;
+        width: 100%;
+        /* background-color: #17171b; */
+        /* overflow: scroll; */
+      }
+    </style>
+  </head>
+  <body>
+    <div style="width: 1250px; height: 600px; overflow-y: scroll;transform: scale(.9);">
+      <div style="box-sizing: border-box; height: 1200px;background-color: #17171b;">
+        <canvas></canvas>
+      </div>
+    </div>
+    <button id="button">按钮</button>
+  </body>
+  <script src="./src/index.js"></script>
+  <script>
+    
+    function formatDate(date, fmt) {
+      //1获取年份
+      if (/(y+)/.test(fmt)) {
+        fmt = fmt.replace(
+          RegExp.$1,
+          (date.getFullYear() + "").substr(4 - RegExp.$1.length)
+        );
+      }
+      //2 获取
+      // M+ ->正则表达式规则  一个多个m
+      let o = {
+        "M+": date.getMonth() + 1,
+        "d+": date.getDate(),
+        "h+": date.getHours(),
+        "m+": date.getMinutes(),
+        "s+": date.getSeconds(),
+      };
+      for (let k in o) {
+        if (new RegExp(`(${k})`).test(fmt)) {
+          let str = o[k] + "";
+          fmt = fmt.replace(
+            RegExp.$1,
+            RegExp.$1.length === 1 ? str : padLeftZero(str)
+          );
+        }
+      }
+      return fmt;
+    }
+    //给字符串前加0 的函数
+    function padLeftZero(str) {
+      return ("00" + str).substr(str.length);
+    }
+    let timeSeriesInsightsChart = new TimeSeriesInsightsChart({
+      canvas: document.getElementsByTagName("canvas")[0],
+      data: initData(),
+      onMemuSelected: (e, data) => {
+      }
+    });
+    timeSeriesInsightsChart.init(1200, 600);
+    timeSeriesInsightsChart.setScale(0.9);
+    timeSeriesInsightsChart.setSameTimeSelect(true);
+    timeSeriesInsightsChart.setPointStatisticsInfo((e, e2) => {
+      return new Array(6).fill({
+        title: "title11",
+        date: "date111",
+        value: "value1111",
+      });
+    })
+    timeSeriesInsightsChart.draw();
+
+    // setTimeout(() => {
+    //   timeSeriesInsightsChart.setColors([
+    //     "#FFFFFF",
+    //     "#FFFFFF",
+    //     "#FFFFFF",
+    //     "#FFFFFF",
+    //     "#FFFFFF",
+    //     "#FFFFFF"
+    //   ])
+    //   setTimeout(() => {
+    //     timeSeriesInsightsChart.refresh();
+    //   }, 1000)
+    // }, 4000)
+
+
+    //模拟数据生产函数
+    function initData() {
+      var arr = [];
+      var arr2 = [];
+      var arr3 = [];
+      var arr4 = [];
+      var arr5 = [];
+      var arr6 = [];
+
+      for (var i = 0; i < 4; i++) {
+        const date = new Date(1654940813322 + (i * 24 * 60 * 60 * 1000));
+        arr.push({
+          // name: '05-' + (i + 1 + '').padStart(2 , '0'),
+          name: formatDate(date, "yyyy-MM-dd hh:mm:ss"),
+          value: rand(0, 0.1) / 100,
+          info: {
+            title: "111X轴实时震动加速度PMS值" + i,
+            date: "2022-04-07 14:15:00" + i,
+            value: "1111avg: 0.009" + i,
+          },
+        });
+        arr2.push({
+          // name: '05-' + (i + 1 + '').padStart(2 , '0'),
+          name: formatDate(date, "yyyy-MM-dd hh:mm:ss"),
+          value: rand(0, 2000) / 100,
+          info: {
+            title: "222X轴实时震动加速度PMS值" + i,
+            date: "2022-04-07 14:15:00" + i,
+            value: "222avg: 0.009" + i,
+          },
+        });
+        arr3.push({
+          // name: '05-' + (i + 1 + '').padStart(2 , '0'),
+          name: formatDate(date, "yyyy-MM-dd hh:mm:ss"),
+          value: rand(0, 2000) / 100,
+          info: {
+            title: "333X轴实时震动加速度PMS值" + i,
+            date: "2022-04-07 14:15:00" + i,
+            value: "333avg: 0.009" + i,
+          },
+        });
+        arr4.push({
+          // name: '05-' + (i + 1 + '').padStart(2 , '0'),
+          name: formatDate(date, "yyyy-MM-dd hh:mm:ss"),
+          value: rand(0, 10000) / 100,
+          info: {
+            title: "444X轴实时震动加速度PMS值" + i,
+            date: "2022-04-07 14:15:00" + i,
+            value: "444avg: 0.009" + i,
+          },
+        });
+        arr5.push({
+          // name: '05-' + (i + 1 + '').padStart(2 , '0'),
+          name: formatDate(date, "yyyy-MM-dd hh:mm:ss"),
+          value: rand(0, 7000) / 100,
+          info: {
+            title: "555X轴实时震动加速度PMS值" + i,
+            date: "2022-04-07 14:15:00" + i,
+            value: "555avg: 0.009" + i,
+          },
+        });
+        arr6.push({
+          // name: '05-' + (i + 1 + '').padStart(2 , '0'),
+          name: formatDate(date, "yyyy-MM-dd hh:mm:ss"),
+          value: rand(0, 2000) / 100,
+          info: {
+            title: "666X轴实时震动加速度PMS值" + i + i,
+            date: "2022-04-07 14:15:00" + i + i,
+            value: "666avg: 0.009" + i + i,
+          },
+        });
+      }
+      return [arr];
+    }
+    //随机数函数
+    function rand(n, m) {
+      var c = m - n + 1;
+      return (Math.random() * c + n);
+    }
+
+    document.getElementById("button").onclick = () => {
+      timeSeriesInsightsChart.back();
+    }
+  </script>
+</html>
