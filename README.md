@@ -1,4 +1,7 @@
 # 时序见解封装
+## 导入
+
+`npm i time-series-insights-chart-base -S`
 
 ## 默认配置项
 
@@ -97,3 +100,5 @@ this.timeSeriesInsightsChart.setSameTimeSelect(this.sameTimeSelect);
 // 开始绘制
 this.timeSeriesInsightsChart.draw();
 ```
+
+## 其他方法直接看源码
